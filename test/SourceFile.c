@@ -1,30 +1,30 @@
 /*************************
  *                       *
- * ÎÄ¼ş¼Ğ: ¡ø10 ÄÚ²¿ÅÅĞò *
+ * æ–‡ä»¶å¤¹: 10 å†…éƒ¨æ’åº *
  *                       *
- * ÎÄ¼şÃû: AddressSort.c *
+ * æ–‡ä»¶å: AddressSort.c *
  *                       *
- * Ëã  ·¨: 10.18         *
+ * ç®—  æ³•: 10.18         *
  *                       *
  *************************/
 
 #ifndef ADDRESSSORT_C
 #define ADDRESSSORT_C
 
-#include "AddressSort.h"	//**¡ø10 ÄÚ²¿ÅÅĞò**//
+#include "AddressSort.h"	//**10 å†…éƒ¨æ’åº**//
 
 void AddressSort(SqList_sort *L)
 {
 	int i, j, tmp;
-	int adr[MAXSIZE+1];					//µØÖ·Êı×é 
+	int adr[MAXSIZE+1];					//åœ°å€æ•°ç»„ 
 	Status tag;
 	
 	for(i=1; i<=(*L).length; i++)
 		adr[i] = i;
 	
-	for(i=(*L).length; i>=2; i--)		//Ê¹ÓÃÁËÆğÅİÅÅĞò×öÊ¾·¶£¬Ò²¿ÉÒÔÓÃ±ğµÄÅÅĞò·½·¨ 
+	for(i=(*L).length; i>=2; i--)		//ä½¿ç”¨äº†èµ·æ³¡æ’åºåšç¤ºèŒƒï¼Œä¹Ÿå¯ä»¥ç”¨åˆ«çš„æ’åºæ–¹æ³• 
 	{
-		tag = FALSE;					//tag±ê¼Ç±éÀú¹ı³ÌÊÇ·ñ·¢ÉúµÄ½»»»
+		tag = FALSE;					//tagæ ‡è®°éå†è¿‡ç¨‹æ˜¯å¦å‘ç”Ÿçš„äº¤æ¢
 		
 		for(j=1; j<=i-1; j++)
 		{
@@ -34,7 +34,7 @@ void AddressSort(SqList_sort *L)
 				adr[j+1] = adr[j];
 				adr[j] = tmp;
 				
-				tag = TRUE;				//Èô±éÀú²»·¢Éú½»»»£¬ËµÃ÷ĞòÁĞÒÑ¾­ÓĞĞò 
+				tag = TRUE;				//è‹¥éå†ä¸å‘ç”Ÿäº¤æ¢ï¼Œè¯´æ˜åºåˆ—å·²ç»æœ‰åº 
 			}		
 		}
 		
@@ -45,9 +45,6 @@ void AddressSort(SqList_sort *L)
 	Rearrange(L, adr);
 }
 
-/*¨T¨T¨T¨T¨T¨[
-¨U Ëã·¨10.18¨U 
-¨^¨T¨T¨T¨T¨T*/
 void Rearrange(SqList_sort *L, int adr[])
 {
 	int i, j, k;

@@ -38,40 +38,49 @@ class WC():
             space_count = 0
             flag = False
             base_name = path.basename(file)
-            # 使用utf-8遇到有中文会报错
-            with open(file, 'r', encoding='ISO-8859-1') as f:
-                f_read = f.read()
-                # 数字符
-                if self.args.c:
-                    char_num = len(findall(r'\S', f_read, M))
-                    self.info.append(base_name + " 字符数: " + str(char_num))
-                # 数单词
-                if self.args.w:
-                    word_num = len(findall(r'[a-zA-Z]+', f_read, M))
-                    self.info.append(base_name + " 单词数: " + str(word_num))
-                f.close()
-            with open(file, 'r', encoding='ISO-8859-1') as f:
-                f_readline = f.readlines()
-                # 数行
-                if self.args.l:
-                    line_num = len(f_readline)
-                    self.info.append(base_name + " 行数: " + str(line_num))
-                # 数代码行、空行、注释行
-                for line in f_readline:
-                    if "/*" in line:
-                        note_count = note_count + 1
-                        flag = True
-                    elif flag:
-                        note_count = note_count + 1
-                        if "*/" in line:
-                            flag = False
-                    elif "//" in line:
-                        note_count = note_count + 1
-                    elif len(line.strip()) > 1:
-                        code_count = code_count + 1
-                    else:
-                        space_count = space_count + 1
-                f.close()
+            try:
+                with open(file, 'r', encoding='utf-8') as f:
+                    f_read = f.read()
+                    # 数字符
+                    if self.args.c:
+                        #char_num = len(findall(r'\S', f_read, M))
+                        char_num = len(f_read)
+                        self.info.append(base_name + " 字符数: " + str(char_num))
+                    # 数单词
+                    if self.args.w:
+                        word_num = len(findall(r'[a-zA-Z]+', f_read, M))
+                        self.info.append(base_name + " 单词数: " + str(word_num))
+                    f.close()
+            except:
+                self.info.append(base_name + "文件打开错误.")
+
+            try:
+                with open(file, 'r', encoding='utf-8') as f:
+                    f_readline = f.readlines()
+                    # 数行
+                    if self.args.l:
+                        line_num = len(f_readline)
+                        self.info.append(base_name + " 行数: " + str(line_num))
+                    # 数代码行、空行、注释行
+                    for line in f_readline:
+                        if "/*" in line:
+                            note_count = note_count + 1
+                            flag = True
+                            if "*/" in line:
+                                flag = False
+                        elif flag:
+                            note_count = note_count + 1
+                            if "*/" in line:
+                                flag = False
+                        elif "//" in line:
+                            note_count = note_count + 1
+                        elif len(line.strip()) > 1:
+                            code_count = code_count + 1
+                        else:
+                            space_count = space_count + 1
+                    f.close()
+            except:
+                self.info.append(base_name + "文件打开错误.")
 
             if self.args.a:
                 self.info.append(base_name + " 代码行: " + str(code_count))
@@ -125,7 +134,7 @@ class WC():
                 print(info)
         return self.info
 
-def main_test():
+def wc_main():
     args = parse_test()
     if args.x:
         args.c = True
@@ -140,4 +149,4 @@ def main_test():
 
 
 if __name__ == '__main__':
-    main_test()
+    wc_main()
