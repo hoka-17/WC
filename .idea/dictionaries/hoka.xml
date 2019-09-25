@@ -2,6 +2,7 @@
   <dictionary name="hoka">
     <words>
       <w>readline</w>
+      <w>vbox</w>
     </words>
   </dictionary>
 </component>
